@@ -8,7 +8,7 @@ os.environ["IS_BENCHMARKING"] = "1"
 from pokemon_dl import pokemon
 
 
-NB_ITERATIONS = 20
+NB_ITERATIONS = 50
 
 
 async def main() -> 0:
@@ -30,4 +30,4 @@ async def main() -> 0:
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    raise SystemExit(asyncio.run(main()))
