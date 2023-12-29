@@ -1,0 +1,6 @@
+black
+fastapi
+httpx
+Pillow
+uvicorn
+pip-tools
