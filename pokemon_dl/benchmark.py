@@ -8,7 +8,7 @@ os.environ["IS_BENCHMARKING"] = "1"
 from pokemon_dl import pokemon
 
 
-NB_ITERATIONS = 50
+NB_ITERATIONS = 10
 
 
 async def main() -> 0:
