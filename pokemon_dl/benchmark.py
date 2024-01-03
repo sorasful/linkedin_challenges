@@ -5,17 +5,17 @@ import time
 
 os.environ["IS_BENCHMARKING"] = "1"
 
-from pokemon_dl import pokemon
+from pokemon_dl import pokemon_multiprocessing
 
 
-NB_ITERATIONS = 10
+NB_ITERATIONS = 20
 
 
 async def main() -> 0:
     times = []
     for i in range(NB_ITERATIONS):
         start = time.perf_counter()
-        await pokemon.main()
+        await pokemon_multiprocessing.main()
         end = time.perf_counter()
 
         total_time = end - start

@@ -24,14 +24,14 @@ async def get_image(url: str, client: httpx.AsyncClient) -> bytes:
     return response.content
 
 
-def get_most_present_pixels(image: bytes):
+def get_most_present_pixels(image: bytes) -> Counter:
     img = Image.open(BytesIO(image), "r")
-    most_common_pixels = Counter(list(img.getdata())).most_common(10)
+    most_common_pixels = Counter(img.getdata())
 
     return most_common_pixels
 
 
-async def get_most_common_pixels():
+async def get_most_common_pixels() -> None:
     async with httpx.AsyncClient(timeout=30) as client:
         get_image_tasks = [
             get_image(f"{BASE_URL}{i}.jpg", client=client)
@@ -40,14 +40,13 @@ async def get_most_common_pixels():
 
         images = await asyncio.gather(*get_image_tasks)
 
-        results = defaultdict(lambda: 0)
+    aggregated_results = Counter()
 
-        with ProcessPoolExecutor() as pool:
-            for result in pool.map(get_most_present_pixels, images):
-                for pixels, count in result:
-                    results[pixels] += count
+    with ProcessPoolExecutor() as pool:
+        for result in pool.map(get_most_present_pixels, images):
+            aggregated_results.update(result)
 
-        print(Counter(results).most_common(10))
+    print(aggregated_results.most_common(10))
 
 
 async def main() -> int:

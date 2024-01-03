@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.get("/assets/images/sets/{set_path:path}")
 async def get_image(set_path: str) -> FileResponse:
-    await asyncio.sleep(0)
+    await asyncio.sleep(0.1)
 
     image_path = os.path.join("assets", "images", "sets", set_path)
 
